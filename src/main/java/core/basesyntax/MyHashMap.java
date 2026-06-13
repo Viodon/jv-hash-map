@@ -22,16 +22,16 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
             size++;
             return;
         }
-        Node<K, V> curent = table[index];
-        while (curent != null) {
-            if (curent.key == key || (curent.key != null && curent.key.equals(key))) {
-                curent.value = value;
+        Node<K, V> current = table[index];
+        while (current != null) {
+            if (current.key == key || (current.key != null && current.key.equals(key))) {
+                current.value = value;
                 return;
             }
-            curent = curent.next;
+            current = current.next;
         }
-        curent = table[index];
-        table[index] = new Node<>(key, value, curent);
+        current = table[index];
+        table[index] = new Node<>(key, value, current);
         size++;
     }
 
@@ -39,7 +39,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     public V getValue(K key) {
         int index = getIndex(key);
         Node<K, V>[] table = getTable(); //added local variable
-        if (table == null || size == 0 || table.length < index) { //added checking size == 0
+        if (table == null || size == 0 || table.length <= index) { //added checking size == 0
             return null;
         }
         Node<K, V> current = table[index];
