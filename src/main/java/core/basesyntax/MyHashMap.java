@@ -38,10 +38,11 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     @Override
     public V getValue(K key) {
         int index = getIndex(key);
-        if (getTable() == null || getTable().length < index) {
+        Node<K, V>[] table = getTable(); //added local variable
+        if (table == null || size == 0 || table.length < index) { //added checking size == 0
             return null;
         }
-        Node<K, V> current = getTable()[index];//?
+        Node<K, V> current = table[index];
         while (current != null) {
             if (current.key == key || (current.key != null && current.key.equals(key))) {
                 return current.value;
@@ -56,7 +57,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         return size;
     }
 
-    public Node<K, V>[] getTable() {
+    private Node<K, V>[] getTable() {
         return table;
     }
 
@@ -82,11 +83,11 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     }
 
     static class Node<K, V> {
-        private K key;
+        private K key; //added private modifier
         private V value;
         private Node<K, V> next;
 
-        Node(K key, V value, Node<K, V> next) {
+        public Node(K key, V value, Node<K, V> next) { //added public modifier
             this.key = key;
             this.value = value;
             this.next = next;
