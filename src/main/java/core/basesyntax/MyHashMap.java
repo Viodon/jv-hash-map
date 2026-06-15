@@ -8,7 +8,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     private int size = 0;
 
     @Override
-    public void put(K key, V value) { // index = hashCode(key) % capacity
+    public void put(K key, V value) {
         int index;
         if (size == 0) {
             table = new Node[DEFAULT_CAPACITY];
@@ -38,8 +38,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     @Override
     public V getValue(K key) {
         int index = getIndex(key);
-        Node<K, V>[] table = getTable(); //added local variable
-        if (table == null || size == 0 || table.length <= index) { //added checking size == 0
+        if (table == null || size == 0 || table.length <= index) {
             return null;
         }
         Node<K, V> current = table[index];
@@ -55,10 +54,6 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     @Override
     public int getSize() {
         return size;
-    }
-
-    private Node<K, V>[] getTable() {
-        return table;
     }
 
     private Node<K, V>[] resize(Node<K, V>[] table) {
@@ -83,11 +78,11 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     }
 
     static class Node<K, V> {
-        private K key; //added private modifier
+        private K key;
         private V value;
         private Node<K, V> next;
 
-        public Node(K key, V value, Node<K, V> next) { //added public modifier
+        public Node(K key, V value, Node<K, V> next) {
             this.key = key;
             this.value = value;
             this.next = next;
